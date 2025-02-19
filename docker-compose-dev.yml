@@ -13,7 +13,7 @@ services:
     ports:
       - "8000:8000"                             # Expose backend
     depends_on:
-      - postgres                                # Wait for database
+      - db_dev                                # Wait for database
 
   frontend:
     container_name: frontend_dev
@@ -42,15 +42,16 @@ services:
       - backend
       - frontend
 
-  postgres:
+  db_dev:
     container_name: postgres_dev
+    hostname: db_dev
     image: postgres:15
     volumes:
       - database:/var/lib/postgresql/data         # Persist database data
     env_file:
       - .env.dev
     ports:
-      - "5432:5432"                             # Expose database
+      - "5433:5432"                            # Expose database
 
 volumes:
   database:
