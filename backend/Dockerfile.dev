@@ -45,7 +45,11 @@ ENV PYTHONUNBUFFERED 1
 
 # Install system dependencies for PostGIS and Django
 RUN apk add --no-cache \
-    libpq postgresql-dev gcc musl-dev python3-dev libffi-dev
+    postgresql-dev \
+    postgresql-client \
+    geos-dev \
+    gdal-dev \
+    proj-dev
 
 # Install pip dependencies first for better caching
 COPY ./requirements.txt /usr/src/app/requirements.txt
