@@ -1,0 +1,26 @@
+# Use Node.js 23 (latest version)
+FROM node:23.5.0-alpine
+
+# Set working directory
+WORKDIR /usr/src/app
+
+# Ensure npm uses the official registry
+# RUN npm config set registry https://registry.npmjs.org/
+
+# Temporarily disable strict TLS to avoid ERR_TLS_CERT_ALTNAME_INVALID errors
+# RUN npm config set strict-ssl false
+
+# Copy package.json and package-lock.json first (better for caching)
+COPY package.json  /usr/src/app
+# COPY  package-lock.json /usr/src/app
+
+RUN npm install
+
+# Copy the rest of the application files
+COPY . .
+
+# Expose Vite's default port (5173)
+EXPOSE 5173
+
+# Run Vite in development mode
+CMD ["npm", "run", "dev", "--", "--host"]
