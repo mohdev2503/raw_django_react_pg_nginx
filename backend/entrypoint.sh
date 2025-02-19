@@ -1,6 +1,8 @@
 #!/bin/ash
 # Apply migrations automatically in development
 echo "Running migrations..."
+
+python manage.py makemigrations accounts
 python manage.py makemigrations --noinput
 python manage.py migrate --noinput
 
